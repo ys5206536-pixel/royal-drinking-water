@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Royal Drinking Water — Pure Bihar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#c9a84c;--gold2:#f0d080;--gold3:#a07030;
+  --ink:#04080f;--ink2:#0b1120;--ink3:#111827;
+  --cream:#f5efe0;--cream2:#e8dcc8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'EB Garamond',serif;overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+.cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:.35;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(4,8,15,.9),transparent);transition:background .4s;}
+nav.scrolled{background:rgba(4,8,15,.95);backdrop-filter:blur(14px);}
+.nav-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.nav-links{display:flex;gap:34px;list-style:none;}
+.nav-links a{font-family:'Cormorant SC',serif;font-size:.82rem;letter-spacing:.2em;color:rgba(245,239,224,.55);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 120% 70% at 50% 110%,rgba(13,92,158,.5) 0%,transparent 65%),radial-gradient(ellipse 80% 50% at 80% 20%,rgba(201,168,76,.07) 0%,transparent 55%),linear-gradient(175deg,#04080f 0%,#060d1a 40%,#070f20 70%,#050a18 100%);}
+.wave-container{position:absolute;bottom:0;left:0;right:0;height:260px;overflow:hidden;}
+.wave{position:absolute;bottom:0;left:-200px;right:-200px;border-radius:45%;animation:waveAnim linear infinite;}
+.wave1{height:200px;background:rgba(13,92,158,.16);animation-duration:10s;}
+.wave2{height:180px;bottom:10px;background:rgba(10,61,107,.2);animation-duration:13s;animation-direction:reverse;}
+.wave3{height:160px;bottom:20px;background:rgba(7,40,80,.26);animation-duration:16s;}
+@keyframes waveAnim{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.particles{position:absolute;inset:0;pointer-events:none;}
+.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;animation:floatP linear infinite;opacity:0;}
+@keyframes floatP{0%{transform:translateY(0);opacity:0}10%{opacity:.8}90%{opacity:.3}100%{transform:translateY(-110vh);opacity:0}}
+
+.hero-content{position:relative;z-index:10;text-align:center;padding:0 24px;}
+.hero-eyebrow{font-family:'Cormorant SC',serif;font-size:.75rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;display:block;opacity:0;animation:fadeUp 1.4s .2s forwards;}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(3rem,9vw,8rem);font-weight:900;line-height:.95;letter-spacing:.04em;background:linear-gradient(165deg,#f8e98a 0%,#c9a84c 30%,#f0d080 55%,#a07030 75%,#f0d080 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 60px rgba(201,168,76,.3));opacity:0;animation:fadeUp 1.4s .05s forwards;}
+.hero-sub{font-style:italic;font-size:clamp(1rem,2.5vw,1.55rem);color:rgba(245,239,224,.5);letter-spacing:.12em;margin-top:18px;opacity:0;animation:fadeUp 1.4s .35s forwards;}
+.hero-divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:32px auto;max-width:360px;opacity:0;animation:fadeUp 1.4s .45s forwards;}
+.hero-divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-divider em{color:var(--gold);font-size:1.2rem;font-style:normal;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-cta{display:inline-block;padding:16px 52px;border:1px solid var(--gold);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.3em;color:var(--gold);text-decoration:none;text-transform:uppercase;position:relative;overflow:hidden;transition:color .4s;opacity:0;animation:fadeUp 1.4s .55s forwards;}
+.hero-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-101%);transition:transform .4s cubic-bezier(.77,0,.175,1);}
+.hero-cta:hover::before{transform:translateX(0);}
+.hero-cta:hover{color:var(--ink);}
+.hero-cta span{position:relative;z-index:1;}
+
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Cormorant SC',serif;font-size:.68rem;letter-spacing:.35em;color:rgba(201,168,76,.45);display:flex;flex-direction:column;align-items:center;gap:10px;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sPulse 2s ease-in-out infinite;}
+@keyframes sPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* HERO BOTTLE */
+.bottle-stage{position:absolute;right:9%;top:50%;transform:translateY(-50%);animation:bFloat 5s ease-in-out infinite;filter:drop-shadow(0 30px 60px rgba(13,92,158,.55)) drop-shadow(0 0 40px rgba(201,168,76,.12));opacity:0;animation:bFloat 5s ease-in-out infinite,fadeUp 2s .4s forwards;}
+@keyframes bFloat{0%,100%{transform:translateY(-50%) rotate(-2deg)}50%{transform:translateY(calc(-50% - 18px)) rotate(2deg)}}
+.bottle{width:110px;height:360px;position:relative;}
+.b-cap{position:absolute;bottom:338px;left:50%;transform:translateX(-50%);width:42px;height:22px;background:linear-gradient(180deg,var(--gold2),var(--gold),var(--gold3));border-radius:4px 4px 2px 2px;box-shadow:0 0 16px rgba(201,168,76,.55);}
+.b-cap::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:4px;background:var(--gold3);border-radius:0 0 2px 2px;}
+.b-neck{position:absolute;bottom:306px;left:50%;transform:translateX(-50%);width:34px;height:34px;background:linear-gradient(105deg,rgba(200,235,255,.1),rgba(13,92,158,.6),rgba(7,40,80,.82));border-radius:3px 3px 0 0;border:1px solid rgba(100,180,255,.2);border-bottom:none;overflow:hidden;}
+.b-neck::after{content:'';position:absolute;top:0;left:4px;width:5px;height:100%;background:linear-gradient(180deg,rgba(255,255,255,.2),transparent);border-radius:3px;}
+.b-shoulder{position:absolute;bottom:278px;left:50%;transform:translateX(-50%);width:90px;height:30px;background:linear-gradient(180deg,rgba(13,92,158,.4),rgba(13,92,158,.7));border-radius:50% 50% 0 0/100% 100% 0 0;border:1px solid rgba(100,180,255,.2);border-bottom:none;}
+.b-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:90px;height:280px;background:linear-gradient(105deg,rgba(200,235,255,.1) 0%,rgba(13,92,158,.5) 15%,rgba(13,118,180,.72) 40%,rgba(10,61,107,.85) 60%,rgba(7,40,80,.9) 80%,rgba(5,25,55,.85) 100%);border-radius:6px 6px 18px 18px;border:1px solid rgba(100,180,255,.22);overflow:hidden;}
+.b-water{position:absolute;bottom:0;left:0;right:0;height:74%;background:linear-gradient(180deg,rgba(26,127,193,.55) 0%,rgba(13,92,158,.78) 40%,rgba(7,55,110,.92) 100%);animation:bWater 4s ease-in-out infinite;}
+@keyframes bWater{0%,100%{height:74%}50%{height:70%}}
+.b-water::before{content:'';position:absolute;top:-8px;left:-30px;right:-30px;height:16px;border-radius:50%;background:rgba(26,127,193,.65);animation:bSurf 2.5s ease-in-out infinite;}
+@keyframes bSurf{0%,100%{transform:translateY(0) scaleX(1)}50%{transform:translateY(3px) scaleX(1.04)}}
+.b-shine{position:absolute;top:10px;left:10px;width:13px;height:190px;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.05),transparent);border-radius:10px;filter:blur(2px);}
+.b-shine2{position:absolute;top:30px;right:14px;width:5px;height:90px;background:linear-gradient(180deg,rgba(255,255,255,.15),transparent);border-radius:5px;filter:blur(1px);}
+.b-label{position:absolute;bottom:65px;left:50%;transform:translateX(-50%);width:68px;height:110px;background:linear-gradient(155deg,rgba(201,168,76,.14),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.4);border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;backdrop-filter:blur(2px);}
+.l-crown{font-size:.85rem;line-height:1;}
+.l-line{width:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.l-text{font-family:'Cinzel',serif;font-size:.26rem;letter-spacing:.12em;color:var(--gold2);text-align:center;line-height:1.6;text-transform:uppercase;}
+.b-drop{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:9px;height:13px;background:radial-gradient(ellipse at 30% 30%,rgba(100,200,255,.8),rgba(13,92,158,.9));border-radius:50% 50% 50% 50%/40% 40% 60% 60%;box-shadow:0 0 8px rgba(13,118,180,.6);animation:drip 3s ease-in-out 2s infinite;opacity:0;}
+@keyframes drip{0%{opacity:0;transform:translateX(-50%) translateY(0)}10%{opacity:1}60%{opacity:1;transform:translateX(-50%) translateY(20px)}70%,100%{opacity:0;transform:translateX(-50%) translateY(30px)}}
+
+/* ═══ STORY ═══ */
+.story{position:relative;padding:130px 0;overflow:hidden;}
+.story::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 0% 50%,rgba(13,92,158,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 100% 50%,rgba(201,168,76,.04) 0%,transparent 60%);}
+.story-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;}
+
+/* GANGA SCENE */
+.ganga-scene{position:relative;height:520px;border-radius:2px;overflow:hidden;}
+.ganga-bg{width:100%;height:100%;background:linear-gradient(175deg,#040e1c 0%,#061424 25%,#082040 50%,#0a3060 70%,#0d4a80 85%,#0f5590 100%);position:relative;overflow:hidden;}
+.g-star{position:absolute;background:white;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.g-moon{position:absolute;top:12%;right:18%;width:48px;height:48px;background:radial-gradient(circle at 35% 35%,#fff9dc,#f0d080,#c9a84c);border-radius:50%;box-shadow:0 0 30px rgba(240,208,128,.4),0 0 80px rgba(201,168,76,.12);}
+.g-moon-glow{position:absolute;inset:-15px;background:radial-gradient(circle,rgba(240,208,128,.15),transparent 70%);border-radius:50%;animation:moonP 4s ease-in-out infinite;}
+@keyframes moonP{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.g-om{position:absolute;top:8%;left:10%;font-size:1.6rem;color:rgba(201,168,76,.35);animation:omF 6s ease-in-out infinite;font-family:'EB Garamond',serif;}
+@keyframes omF{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-8px);opacity:.6}}
+.g-hills{position:absolute;bottom:44%;left:0;right:0;}
+.g-hill{position:absolute;bottom:0;background:linear-gradient(to top,#0a1f35,#061428);}
+.g-hill1{left:-5%;width:45%;height:120px;border-radius:50% 80% 0 0/60% 100% 0 0;}
+.g-hill2{left:25%;width:55%;height:160px;border-radius:30% 70% 0 0/40% 100% 0 0;}
+.g-hill3{left:55%;width:55%;height:110px;border-radius:70% 40% 0 0/100% 60% 0 0;}
+.g-temple{position:absolute;bottom:44%;left:50%;transform:translateX(-50%);width:30px;}
+.g-spire{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:40px solid #040e1c;margin:0 auto;}
+.g-tbody{width:30px;height:25px;background:#040e1c;margin:0 auto;}
+.g-tbase{width:40px;height:8px;background:#040e1c;margin:0 auto;}
+.g-light{position:absolute;bottom:44%;left:calc(50% - 1px);width:2px;height:50px;background:linear-gradient(to top,rgba(255,200,50,.8),transparent);animation:sacFlick 2s ease-in-out infinite;}
+@keyframes sacFlick{0%,100%{opacity:.8;height:50px}50%{opacity:1;height:65px}}
+.g-water{position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(13,92,158,.65) 0%,rgba(10,70,120,.82) 40%,rgba(7,45,85,.95) 100%);overflow:hidden;}
+.g-ripple{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.28);animation:ripOut 4s ease-out infinite;}
+.g-ripple:nth-child(1){width:60px;height:20px;bottom:40%;left:20%;animation-delay:0s;}
+.g-ripple:nth-child(2){width:100px;height:30px;bottom:30%;left:40%;animation-delay:1.3s;}
+.g-ripple:nth-child(3){width:80px;height:25px;bottom:50%;left:60%;animation-delay:2.7s;}
+@keyframes ripOut{0%{transform:scale(0);opacity:.8}100%{transform:scale(3);opacity:0}}
+.g-moonref{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:3px;background:linear-gradient(to bottom,rgba(240,208,128,.55),transparent);animation:mRef 3s ease-in-out infinite;}
+@keyframes mRef{0%,100%{height:80px;opacity:.6}50%{height:100px;opacity:.9}}
+.g-frame{position:absolute;inset:0;border:1px solid rgba(201,168,76,.18);pointer-events:none;}
+.g-frame::before{content:'';position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(201,168,76,.07);}
+.g-corner{position:absolute;width:22px;height:22px;}
+.g-corner::before,.g-corner::after{content:'';position:absolute;background:var(--gold);}
+.g-corner::before{left:0;top:0;width:100%;height:1px;}
+.g-corner::after{left:0;top:0;width:1px;height:100%;}
+.g-corner.tr{top:6px;right:6px;transform:rotate(90deg);}
+.g-corner.bl{bottom:6px;left:6px;transform:rotate(270deg);}
+.g-corner.br{bottom:6px;right:6px;transform:rotate(180deg);}
+.g-corner.tl{top:6px;left:6px;}
+
+/* STORY TEXT */
+.story-text{position:relative;}
+.story-label{font-family:'Cormorant SC',serif;font-size:.72rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;display:block;}
+.story-text h2{font-family:'Cinzel',serif;font-size:clamp(2rem,3.8vw,3.1rem);font-weight:700;line-height:1.1;color:var(--cream);margin-bottom:28px;}
+.story-text h2 em{font-style:normal;background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.story-text p{font-size:1.08rem;line-height:1.9;color:rgba(245,239,224,.65);margin-bottom:20px;}
+.story-text p strong{color:var(--gold2);font-weight:500;}
+.story-quote{margin:32px 0;padding:24px 28px;border-left:2px solid var(--gold);background:rgba(201,168,76,.05);}
+.story-quote p{font-style:italic;font-size:1.12rem;color:rgba(245,239,224,.72);margin:0;}
+.story-quote cite{display:block;margin-top:10px;font-family:'Cormorant SC',serif;font-size:.73rem;letter-spacing:.2em;color:var(--gold);font-style:normal;}
+
+/* ═══ PRODUCTS ═══ */
+.products-section{padding:120px 0;background:linear-gradient(180deg,var(--ink) 0%,#060c18 50%,var(--ink) 100%);}
+.sec-head{text-align:center;margin-bottom:70px;padding:0 24px;}
+.sec-eyebrow{font-family:'Cormorant SC',serif;font-size:.73rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:16px;}
+.sec-head h2{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;background:linear-gradient(135deg,var(--cream) 0%,var(--gold2) 50%,var(--cream) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+.sec-head p{font-style:italic;color:rgba(245,239,224,.42);font-size:1.05rem;letter-spacing:.1em;}
+
+.prod-grid{max-width:1200px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.1);}
+.prod-card{background:var(--ink);padding:52px 28px 44px;position:relative;overflow:hidden;transition:background .4s;text-align:center;}
+.prod-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;}
+.prod-card:hover{background:rgba(255,255,255,.02);}
+.prod-card:hover::before{opacity:1;}
+.prod-card.blue::before{background:radial-gradient(ellipse at 50% 0%,rgba(13,92,158,.17),transparent 65%);}
+.prod-card.teal::before{background:radial-gradient(ellipse at 50% 0%,rgba(0,140,140,.14),transparent 65%);}
+.prod-card.silver::before{background:radial-gradient(ellipse at 50% 0%,rgba(100,140,220,.12),transparent 65%);}
+.prod-card.goldv::before{background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.14),transparent 65%);}
+
+/* MINI BOTTLE */
+.mb{width:56px;height:168px;margin:0 auto 30px;position:relative;filter:drop-shadow(0 10px 30px var(--mg));transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
+.prod-card:hover .mb{transform:translateY(-10px) scale(1.05);}
+.mb-cap{position:absolute;bottom:158px;left:50%;transform:translateX(-50%);width:22px;height:11px;background:linear-gradient(180deg,var(--gold2),var(--gold3));border-radius:3px 3px 1px 1px;box-shadow:0 0 8px rgba(201,168,76,.5);}
+.mb-neck{position:absolute;bottom:137px;left:50%;transform:translateX(-50%);width:18px;height:22px;background:var(--mn);border-radius:3px 3px 0 0;border:1px solid var(--mb);border-bottom:none;}
+.mb-shoulder{position:absolute;bottom:121px;left:50%;transform:translateX(-50%);width:46px;height:18px;background:var(--ms);border-radius:50% 50% 0 0/100% 100% 0 0;border:1px solid var(--mb);border-bottom:none;}
+.mb-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:46px;height:123px;background:var(--mbb);border-radius:4px 4px 12px 12px;border:1px solid var(--mb);overflow:hidden;}
+.mb-fill{position:absolute;bottom:0;left:0;right:0;height:70%;background:var(--mf);animation:mFill 4s ease-in-out infinite;}
+@keyframes mFill{0%,100%{height:70%}50%{height:65%}}
+.mb-shine{position:absolute;top:6px;left:5px;width:5px;height:75px;background:linear-gradient(180deg,rgba(255,255,255,.28),transparent);border-radius:3px;filter:blur(1px);}
+.mb-lbl{position:absolute;bottom:24px;left:3px;right:3px;height:44px;border:1px solid var(--mb);background:rgba(255,255,255,.03);border-radius:2px;display:flex;align-items:center;justify-content:center;}
+.mb-lbl span{font-family:'Cinzel',serif;font-size:.19rem;letter-spacing:.08em;color:var(--gold2);text-align:center;line-height:1.8;text-transform:uppercase;}
+
+.prod-card.blue{--mg:rgba(13,92,158,.5);--mbb:linear-gradient(105deg,rgba(200,235,255,.08),rgba(13,92,158,.5),rgba(7,40,80,.82));--mf:linear-gradient(180deg,rgba(26,127,193,.6),rgba(7,55,110,.9));--mb:rgba(100,180,255,.28);--ms:rgba(13,92,158,.5);--mn:rgba(13,92,158,.6);}
+.prod-card.teal{--mg:rgba(0,160,160,.5);--mbb:linear-gradient(105deg,rgba(200,255,255,.06),rgba(0,140,140,.5),rgba(0,60,60,.82));--mf:linear-gradient(180deg,rgba(0,200,200,.5),rgba(0,80,80,.9));--mb:rgba(0,220,220,.22);--ms:rgba(0,120,120,.5);--mn:rgba(0,120,120,.6);}
+.prod-card.silver{--mg:rgba(120,150,220,.4);--mbb:linear-gradient(105deg,rgba(220,230,255,.08),rgba(80,100,180,.5),rgba(30,40,90,.88));--mf:linear-gradient(180deg,rgba(120,160,255,.4),rgba(30,50,120,.9));--mb:rgba(180,200,255,.22);--ms:rgba(80,100,180,.5);--mn:rgba(80,100,180,.6);}
+.prod-card.goldv{--mg:rgba(201,168,76,.5);--mbb:linear-gradient(105deg,rgba(255,240,180,.07),rgba(180,120,30,.55),rgba(80,50,0,.88));--mf:linear-gradient(180deg,rgba(220,170,40,.5),rgba(90,55,0,.9));--mb:rgba(240,208,128,.28);--ms:rgba(160,112,40,.55);--mn:rgba(160,112,40,.6);}
+
+.prod-num{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.4em;color:rgba(201,168,76,.3);margin-bottom:10px;display:block;}
+.prod-name{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:var(--cream);letter-spacing:.06em;margin-bottom:8px;}
+.prod-tag{font-style:italic;font-size:.88rem;color:rgba(245,239,224,.38);letter-spacing:.06em;margin-bottom:22px;line-height:1.5;}
+.prod-sep{width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 18px;}
+.prod-price{font-family:'Cinzel',serif;font-size:2rem;font-weight:900;line-height:1;margin-bottom:4px;}
+.prod-card.blue .prod-price{color:#7ab8ff;}
+.prod-card.teal .prod-price{color:#4ef5f5;}
+.prod-card.silver .prod-price{color:#c0d0ff;}
+.prod-card.goldv .prod-price{color:var(--gold2);}
+.prod-vol{font-size:.7rem;letter-spacing:.2em;color:rgba(245,239,224,.28);text-transform:uppercase;margin-bottom:30px;}
+.prod-btn{width:100%;padding:13px;background:transparent;border:1px solid rgba(201,168,76,.28);font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.3em;color:rgba(201,168,76,.65);cursor:pointer;text-transform:uppercase;transition:all .3s;position:relative;overflow:hidden;}
+.prod-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.77,0,.175,1);}
+.prod-btn:hover::before{transform:scaleX(1);}
+.prod-btn span{position:relative;z-index:1;}
+.prod-btn:hover span{color:var(--ink);}
+.prod-btn:hover{border-color:var(--gold);}
+
+/* ═══ MINERALS ═══ */
+.minerals-sec{padding:90px 0;border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);background:linear-gradient(90deg,transparent,rgba(201,168,76,.04),transparent);}
+.min-inner{max-width:1000px;margin:0 auto;padding:0 32px;text-align:center;}
+.min-inner h3{font-family:'Cinzel',serif;font-size:1.05rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:40px;}
+.min-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.1);}
+.min-item{background:var(--ink);padding:32px 16px;transition:background .3s;}
+.min-item:hover{background:rgba(201,168,76,.04);}
+.min-icon{font-size:1.5rem;margin-bottom:10px;display:block;}
+.min-name{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;color:var(--gold2);text-transform:uppercase;margin-bottom:4px;}
+.min-ben{font-size:.78rem;color:rgba(245,239,224,.38);font-style:italic;line-height:1.4;}
+
+/* ═══ PAYMENT ═══ */
+.pay-sec{padding:100px 0;}
+.pay-inner{max-width:1000px;margin:0 auto;padding:0 32px;}
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.1);margin-top:56px;}
+.pay-item{background:var(--ink);padding:38px 22px;text-align:center;transition:background .3s;cursor:pointer;position:relative;overflow:hidden;}
+.pay-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--pc,var(--gold));transform:scaleX(0);transition:transform .35s;}
+.pay-item:hover::after{transform:scaleX(1);}
+.pay-item:hover{background:rgba(255,255,255,.02);}
+.pay-emoji{font-size:2.2rem;display:block;margin-bottom:12px;}
+.pay-name{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.15em;margin-bottom:4px;color:var(--pc,var(--gold2));}
+.pay-desc{font-size:.76rem;color:rgba(245,239,224,.32);letter-spacing:.07em;}
+.pay-item:nth-child(1){--pc:#4ef5f5;}
+.pay-item:nth-child(2){--pc:#7ab8ff;}
+.pay-item:nth-child(3){--pc:#c0a0ff;}
+.pay-item:nth-child(4){--pc:#60e8a0;}
+.pay-item:nth-child(5){--pc:#ffb060;}
+.pay-item:nth-child(6){--pc:var(--gold2);}
+
+/* ═══ CONTACT ═══ */
+.contact-sec{padding:100px 0;background:linear-gradient(175deg,#060c18,var(--ink));border-top:1px solid rgba(201,168,76,.1);}
+.contact-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.1);}
+.con-block{background:var(--ink2);padding:52px 36px;}
+.con-block h4{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:26px;display:flex;align-items:center;gap:10px;}
+.con-block p{font-size:.97rem;line-height:2;color:rgba(245,239,224,.58);}
+.con-block a{color:var(--gold2);text-decoration:none;transition:color .2s;}
+.con-block a:hover{color:var(--gold);}
+.f-sig{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;color:var(--cream);letter-spacing:.08em;margin-bottom:5px;display:block;}
+.f-role{font-family:'Cormorant SC',serif;font-size:.7rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+
+/* FOOTER */
+footer{padding:50px 48px 36px;border-top:1px solid rgba(201,168,76,.1);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.f-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.3em;color:var(--gold);}
+footer p{font-size:.74rem;letter-spacing:.14em;color:rgba(245,239,224,.2);}
+footer span{color:var(--gold);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-l{opacity:0;transform:translateX(-50px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal-l.visible{opacity:1;transform:none;}
+.reveal-r{opacity:0;transform:translateX(50px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal-r.visible{opacity:1;transform:none;}
+.stagger>*{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.stagger.visible>*:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible>*:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.stagger.visible>*:nth-child(3){opacity:1;transform:none;transition-delay:.25s;}
+.stagger.visible>*:nth-child(4){opacity:1;transform:none;transition-delay:.35s;}
+.stagger.visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.45s;}
+.stagger.visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.55s;}
+.stagger.visible>*:nth-child(7){opacity:1;transform:none;transition-delay:.65s;}
+.stagger.visible>*:nth-child(8){opacity:1;transform:none;transition-delay:.75s;}
+
+@media(max-width:1024px){
+  .story-inner{grid-template-columns:1fr;gap:60px;}
+  .ganga-scene{height:380px;}
+  .bottle-stage{display:none;}
+  .prod-grid{grid-template-columns:1fr 1fr;}
+  .min-grid{grid-template-columns:repeat(4,1fr);}
+  .contact-inner{grid-template-columns:1fr;}
+}
+@media(max-width:700px){
+  nav{padding:18px 24px;}.nav-links{display:none;}
+  .story-inner{padding:0 24px;}
+  .prod-grid{grid-template-columns:1fr;}
+  .min-grid{grid-template-columns:1fr 1fr;}
+  .pay-grid{grid-template-columns:1fr 1fr;}
+  .contact-inner{grid-template-columns:1fr;}
+  .con-block{padding:36px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Royal · Water</div>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#products">Collection</a></li>
+    <li><a href="#payment">Order</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+  <div class="wave-container">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+
+  <!-- CSS BOTTLE -->
+  <div class="bottle-stage">
+    <div class="bottle">
+      <div class="b-cap"></div>
+      <div class="b-neck"></div>
+      <div class="b-shoulder"></div>
+      <div class="b-body">
+        <div class="b-water"></div>
+        <div class="b-shine"></div>
+        <div class="b-shine2"></div>
+        <div class="b-label">
+          <div class="l-crown">👑</div>
+          <div class="l-line"></div>
+          <div class="l-text">ROYAL<br>DRINKING<br>WATER</div>
+          <div class="l-line"></div>
+          <div class="l-text">PURE MINERAL</div>
+        </div>
+      </div>
+      <div class="b-drop"></div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. Saharsa, Bihar · Sacred Gangetic Plains</p>
+    <h1>Royal<br>Drinking<br>Water</h1>
+    <p class="hero-sub">Mineral Purity from the Heart of Bihar</p>
+    <div class="hero-divider"><span></span><em>✦</em><span></span></div>
+    <a href="#products" class="hero-cta"><span>Discover Our Collection</span></a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-inner">
+
+    <div class="reveal-l">
+      <div class="ganga-scene">
+        <div class="ganga-bg">
+          <div class="g-star" style="top:8%;left:15%;width:2px;height:2px;animation-delay:0s"></div>
+          <div class="g-star" style="top:12%;left:35%;width:3px;height:3px;animation-delay:.5s"></div>
+          <div class="g-star" style="top:6%;left:55%;width:2px;height:2px;animation-delay:1s"></div>
+          <div class="g-star" style="top:15%;left:72%;width:3px;height:3px;animation-delay:1.8s"></div>
+          <div class="g-star" style="top:5%;left:85%;width:2px;height:2px;animation-delay:.3s"></div>
+          <div class="g-star" style="top:20%;left:25%;width:2px;height:2px;animation-delay:2s"></div>
+          <div class="g-star" style="top:10%;left:48%;width:1px;height:1px;animation-delay:2.5s"></div>
+          <div class="g-star" style="top:18%;left:62%;width:1px;height:1px;animation-delay:1.2s"></div>
+          <div class="g-star" style="top:25%;left:80%;width:2px;height:2px;animation-delay:.7s"></div>
+          <div class="g-moon"><div class="g-moon-glow"></div></div>
+          <div class="g-om">ॐ</div>
+          <div class="g-hills">
+            <div class="g-hill g-hill1"></div>
+            <div class="g-hill g-hill2"></div>
+            <div class="g-hill g-hill3"></div>
+          </div>
+          <div class="g-temple">
+            <div class="g-spire"></div>
+            <div class="g-tbody"></div>
+            <div class="g-tbase"></div>
+          </div>
+          <div class="g-light"></div>
+          <div class="g-water">
+            <div class="g-ripple"></div>
+            <div class="g-ripple"></div>
+            <div class="g-ripple"></div>
+            <div class="g-moonref"></div>
+          </div>
+        </div>
+        <div class="g-frame">
+          <div class="g-corner tl"></div>
+          <div class="g-corner tr"></div>
+          <div class="g-corner bl"></div>
+          <div class="g-corner br"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-text reveal-r">
+      <span class="story-label">Our Origin Story</span>
+      <h2>Born on the Banks<br>of the <em>Sacred Ganga</em></h2>
+      <p>In the fertile plains of <strong>Saharsa, Bihar</strong> — where the Ganga's ancient waters have nourished civilisations for millennia — one man dared to dream of something purer.</p>
+      <p>It was the year 2018. <strong>Yuvraj Singh Rajput</strong>, walking along the mist-draped banks near Saharsa at dawn, watched the first light strike the river's surface and thought: <em>why should the people of Bihar settle for anything less than the finest mineral water?</em></p>
+      <div class="story-quote">
+        <p>"The Ganga does not merely flow — she purifies. I wanted to bring that same ancient purity, bottled with modern science, to every home in Bihar."</p>
+        <cite>— Yuvraj Singh Rajput, Founder</cite>
+      </div>
+      <p>Drawing from deep-earth mineral aquifers beneath the Gangetic plains — blessed by the same ancient waters that have sustained Bihar for thousands of years — <strong>Royal Drinking Water</strong> was born.</p>
+      <p>Today, from Saharsa to every corner of Bihar, each bottle carries the legacy of the land: crisp, mineral-rich, and <strong>fit for royalty</strong>.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="sec-head reveal">
+    <span class="sec-eyebrow">The Royal Collection</span>
+    <h2>Four Variants of Purity</h2>
+    <p>Each bottle — a story of Bihar's finest mineral heritage</p>
+  </div>
+  <div class="prod-grid stagger">
+
+    <div class="prod-card blue">
+      <span class="prod-num">01</span>
+      <div class="mb">
+        <div class="mb-cap"></div><div class="mb-neck"></div><div class="mb-shoulder"></div>
+        <div class="mb-body"><div class="mb-fill"></div><div class="mb-shine"></div><div class="mb-lbl"><span>ROYAL<br>AZURE<br>BLUE</span></div></div>
+      </div>
+      <div class="prod-name">Azure Blue</div>
+      <p class="prod-tag">Deep-spring electrolyte<br>for daily vitality</p>
+      <div class="prod-sep"></div>
+      <div class="prod-price">₹15</div>
+      <div class="prod-vol">500 ml · Everyday</div>
+      <button class="prod-btn"><span>Order Now</span></button>
+    </div>
+
+    <div class="prod-card teal">
+      <span class="prod-num">02</span>
+      <div class="mb">
+        <div class="mb-cap"></div><div class="mb-neck"></div><div class="mb-shoulder"></div>
+        <div class="mb-body"><div class="mb-fill"></div><div class="mb-shine"></div><div class="mb-lbl"><span>ROYAL<br>AQUA<br>TEAL</span></div></div>
+      </div>
+      <div class="prod-name">Aqua Teal</div>
+      <p class="prod-tag">Lightly sparkling,<br>crisp Gangetic finish</p>
+      <div class="prod-sep"></div>
+      <div class="prod-price">₹15</div>
+      <div class="prod-vol">750 ml · Refresh</div>
+      <button class="prod-btn"><span>Order Now</span></button>
+    </div>
+
+    <div class="prod-card silver">
+      <span class="prod-num">03</span>
+      <div class="mb">
+        <div class="mb-cap"></div><div class="mb-neck"></div><div class="mb-shoulder"></div>
+        <div class="mb-body"><div class="mb-fill"></div><div class="mb-shine"></div><div class="mb-lbl"><span>ROYAL<br>PEARL<br>SILVER</span></div></div>
+      </div>
+      <div class="prod-name">Pearl Silver</div>
+      <p class="prod-tag">Alkaline-balanced,<br>for active lifestyles</p>
+      <div class="prod-sep"></div>
+      <div class="prod-price">₹25</div>
+      <div class="prod-vol">1 Litre · Active</div>
+      <button class="prod-btn"><span>Order Now</span></button>
+    </div>
+
+    <div class="prod-card goldv">
+      <span class="prod-num">04</span>
+      <div class="mb">
+        <div class="mb-cap"></div><div class="mb-neck"></div><div class="mb-shoulder"></div>
+        <div class="mb-body"><div class="mb-fill"></div><div class="mb-shine"></div><div class="mb-lbl"><span>ROYAL<br>GOLD<br>LUXURY</span></div></div>
+      </div>
+      <div class="prod-name">Royal Gold</div>
+      <p class="prod-tag">Signature luxury<br>trace-mineral blend</p>
+      <div class="prod-sep"></div>
+      <div class="prod-price">₹25</div>
+      <div class="prod-vol">1.5 Litre · Luxury</div>
+      <button class="prod-btn"><span>Order Now</span></button>
+    </div>
+
+  </div>
+</section>
+
+<!-- MINERALS -->
+<section class="minerals-sec">
+  <div class="min-inner">
+    <h3>✦ Natural Mineral Composition ✦</h3>
+    <div class="min-grid stagger">
+      <div class="min-item"><span class="min-icon">🪨</span><div class="min-name">Calcium</div><div class="min-ben">Strengthens bones &amp; teeth</div></div>
+      <div class="min-item"><span class="min-icon">⚡</span><div class="min-name">Magnesium</div><div class="min-ben">Muscle &amp; nerve function</div></div>
+      <div class="min-item"><span class="min-icon">🫀</span><div class="min-name">Potassium</div><div class="min-ben">Heart &amp; blood pressure</div></div>
+      <div class="min-item"><span class="min-icon">💧</span><div class="min-name">Bicarbonates</div><div class="min-ben">Natural pH balance</div></div>
+      <div class="min-item"><span class="min-icon">✨</span><div class="min-name">Silica</div><div class="min-ben">Skin &amp; hair health</div></div>
+      <div class="min-item"><span class="min-icon">🔬</span><div class="min-name">Zinc</div><div class="min-ben">Immune system support</div></div>
+      <div class="min-item"><span class="min-icon">🌊</span><div class="min-name">Sodium</div><div class="min-ben">Electrolyte balance</div></div>
+      <div class="min-item"><span class="min-icon">🦷</span><div class="min-name">Fluoride</div><div class="min-ben">Dental protection</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="pay-sec" id="payment">
+  <div class="pay-inner">
+    <div class="sec-head reveal" style="text-align:left;margin-bottom:0;padding:0;">
+      <span class="sec-eyebrow">Secure Payments</span>
+      <h2>Pay Your Way</h2>
+      <p>Every transaction protected with bank-grade security</p>
+    </div>
+    <div class="pay-grid stagger">
+      <div class="pay-item"><span class="pay-emoji">📲</span><div class="pay-name">UPI</div><div class="pay-desc">Instant bank transfer</div></div>
+      <div class="pay-item"><span class="pay-emoji">🔵</span><div class="pay-name">Google Pay</div><div class="pay-desc">Scan &amp; pay instantly</div></div>
+      <div class="pay-item"><span class="pay-emoji">🟣</span><div class="pay-name">PhonePe</div><div class="pay-desc">Fast &amp; reliable</div></div>
+      <div class="pay-item"><span class="pay-emoji">🟢</span><div class="pay-name">Paytm</div><div class="pay-desc">Wallet &amp; UPI</div></div>
+      <div class="pay-item"><span class="pay-emoji">🏦</span><div class="pay-name">Net Banking</div><div class="pay-desc">All major Indian banks</div></div>
+      <div class="pay-item"><span class="pay-emoji">💵</span><div class="pay-name">Cash on Delivery</div><div class="pay-desc">Pay at your doorstep</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="contact-inner stagger">
+    <div class="con-block">
+      <h4>📍 Address</h4>
+      <p>Royal Drinking Water<br>Saharsa, Bihar — 852201<br>India<br><br><em style="color:rgba(245,239,224,.38);font-size:.88rem;">Nestled in the heart of the Gangetic plains, where Bihar's richest mineral aquifers run deep.</em></p>
+    </div>
+    <div class="con-block">
+      <h4>📞 Contact</h4>
+      <p><a href="tel:+918541804841">+91 85418 04841</a><br><br>Available daily<br>8:00 AM — 9:00 PM IST<br><br>For orders, bulk enquiries &amp; delivery across Bihar</p>
+    </div>
+    <div class="con-block">
+      <h4>👑 Founded By</h4>
+      <p>
+        <span class="f-sig">Yuvraj Singh Rajput</span>
+        <span class="f-role">Founder &amp; Chief Executive</span><br><br>
+        Born and raised in Bihar, Yuvraj built Royal Drinking Water to serve every home in the Gangetic heartland with uncompromised mineral purity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">👑 Royal Drinking Water</div>
+  <p>© 2026 <span>Royal Drinking Water</span> · Founded by <span>Yuvraj Singh Rajput</span> · Saharsa, Bihar</p>
+  <p>Premium Mineral Water · Born on the Banks of the Sacred Ganga · Fit for Royalty</p>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.prod-card,.pay-item,.min-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';curR.style.width='54px';curR.style.height='54px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';curR.style.width='36px';curR.style.height='36px';});
+});
+
+// Particles
+const pc=document.getElementById('particles');
+for(let i=0;i<40;i++){
+  const p=document.createElement('div');p.className='particle';
+  const sz=Math.random()*2.5+1;
+  p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${Math.random()*25}%;animation-duration:${9+Math.random()*18}s;animation-delay:${Math.random()*14}s;`;
+  pc.appendChild(p);
+}
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stagger').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
