@@ -1,0 +1,23 @@
+{
+  "overview": "Royal Drinking Water is a premium mineral water brand from Saharsa, Bihar, India, founded by Yuvraj Singh Rajput in 2018. This website showcases their product collection, brand story, mineral purity, and allows customers to order online with multiple payment options.",
+  "features": [
+    "Hero landing with premium brand identity and Bihar heritage design",
+    "Brand story section with founder narrative (est. 2018, Saharsa, Bihar)",
+    "Product collection with 4 variants: Azure Blue 500ml, Aqua Teal 750ml, Pearl Silver 1L, Royal Gold Luxury 1.5L",
+    "Mineral composition showcase: Calcium, Magnesium, Potassium, and more",
+    "Shopping cart and checkout with 6 payment methods (UPI, Google Pay, PhonePe, Paytm, Net Banking, Cash on Delivery)",
+    "Order confirmation flow with delivery details",
+    "Contact section with business hours, phone, and address"
+  ],
+  "category": "ecommerce",
+  "tags": [
+    "water",
+    "ecommerce",
+    "bihar",
+    "india",
+    "premium",
+    "mineral-water",
+    "shopping-cart"
+  ],
+  "last_updated": "2026-04-22T04:48:35.798Z"
+}
